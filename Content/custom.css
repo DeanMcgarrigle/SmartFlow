@@ -1,0 +1,23 @@
+﻿#map {
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+    #map img.floor-image {
+        position: absolute;
+        left: 117px;
+        bottom: 64px;
+        opacity: 0.3;
+        z-index: 1;
+    }
+
+img.floor-image {
+    width: 945px;
+    height: 481px;
+}
+
+#map svg {
+    position: relative;
+    z-index: 3;
+}

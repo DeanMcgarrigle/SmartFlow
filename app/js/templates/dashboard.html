@@ -1,0 +1,61 @@
+<div ng-controller="dashboard as vm">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="widget">
+                <div class="widget-body">
+                    <div class="widget-content">
+                        <div class="title">{{vm.data.totalClients}}</div>
+                        <div>Unique Clients</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="widget">
+                <div class="widget-body" data-mach-loading>
+                    <div class="widget-content">
+                        <div class="title">{{vm.data.dwellTime}}</div>
+                        <div>Average Dwell Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="widget">
+                <div class="widget-body">
+                    <div class="widget-content">
+                        <div class="title">{{vm.data.activeFloors}}</div>
+                        <div>Active Floors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6" ng-repeat="floor in vm.data.floors">
+            <div class="widget">
+                <div class="widget-header">
+                    {{floor.floor}} ({{floor.observations}})
+                </div>
+                <div class="widget-body medium no-padding">
+                    <div class="widget-content">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr ng-repeat="ap in floor.accessPoints" ng-class="{ danger: ap.showAlert }">
+                                    <td>
+                                        {{ap.displayName}} ({{ap.apMac}})
+                                    </td>
+                                    <td>
+                                        {{ap.seenTime}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

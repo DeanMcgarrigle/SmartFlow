@@ -1,0 +1,23 @@
+{
+  "name": "SmartFlow",
+  "version": "0.0.0",
+  "homepage": "https://github.com/CallumVass/SmartFlow",
+  "authors": [
+    "CallumVass <callum.vass@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.13",
+    "angular": "~1.3.15",
+    "lodash": "~3.6.0",
+    "angular-loading-bar": "~0.7.1"
+  }
+}

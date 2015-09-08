@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{887A8565-4A10-44C8-82EF-F2F2D1D2BFBF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartFlow</RootNamespace>
+    <AssemblyName>SmartFlow</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FileLogging4Net">
+      <HintPath>\\engadmin\Shared Libraries\Logging\FileLogging4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="MachSecureBusinessObjects">
+      <HintPath>\\engadmin\Shared Libraries\MachSecure\MachSecureBusinessObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Nancy">
+      <HintPath>..\packages\Nancy.0.23.2\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Forms">
+      <HintPath>..\packages\Nancy.Authentication.Forms.0.23.2\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Aspnet">
+      <HintPath>..\packages\Nancy.Hosting.Aspnet.0.23.2\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Serialization.JsonNet">
+      <HintPath>..\packages\Nancy.Serialization.JsonNet.0.23.2\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Validation.FluentValidation">
+      <HintPath>..\packages\Nancy.Validation.FluentValidation.0.23.2\lib\net40\Nancy.Validation.FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.ViewEngines.Razor">
+      <HintPath>..\packages\Nancy.Viewengines.Razor.0.23.2\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\js\index.js" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-sortable.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-toggle.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\datepicker.css" />
+    <Content Include="Content\datepicker3.css" />
+    <Content Include="Content\Images\Office.png" />
+    <Content Include="Content\Images\Office - Old.png" />
+    <Content Include="Content\rdash.css" />
+    <Content Include="Content\rdash.min.css" />
+    <Content Include="Content\Scripts\bootstrap-datepicker.js" />
+    <Content Include="Content\Scripts\bootstrap-toggle.min.js" />
+    <Content Include="Content\Scripts\highcharts-more.js" />
+    <Content Include="Content\Scripts\highcharts.js" />
+    <Content Include="Content\Scripts\jquery-1.11.2.min.js" />
+    <Content Include="Content\Scripts\jquery.timer.js" />
+    <Content Include="Content\Scripts\lodash.compat.min.js" />
+    <Content Include="Content\Scripts\moment.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\montserrat-regular-webfont.svg" />
+    <Content Include="icon.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\Scripts\bootstrap.min.js" />
+    <Content Include="Content\Scripts\bootstrap-sortable.js" />
+    <Content Include="Content\Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DataAccess\Queries\DashboardQuery.cs" />
+    <Compile Include="DataAccess\Queries\SnapshotQuery.cs" />
+    <Compile Include="DataAccess\SmartFlowContext.cs" />
+    <Compile Include="DTO\PurpleWifi\PurpleWifiResponse.cs" />
+    <Compile Include="Entity\AccessPointConfig.cs" />
+    <Compile Include="Entity\DashboardConfig.cs" />
+    <Compile Include="Entity\Floor.cs" />
+    <Compile Include="Entity\FloorConfig.cs" />
+    <Compile Include="Entity\FloorLocation.cs" />
+    <Compile Include="Entity\Location.cs" />
+    <Compile Include="Entity\Observation.cs" />
+    <Compile Include="Entity\User.cs" />
+    <Compile Include="ErrorResponse.cs" />
+    <Compile Include="DTO\Meraki\LocationDto.cs" />
+    <Compile Include="DTO\Meraki\MerakiDto.cs" />
+    <Compile Include="Extensions\CsvProcessor.cs" />
+    <Compile Include="Extensions\CsvResponse.cs" />
+    <Compile Include="Extensions\CsvSerializer.cs" />
+    <Compile Include="Extensions\FloorDtoExtensions.cs" />
+    <Compile Include="Extensions\LocationDtoExtensions.cs" />
+    <Compile Include="Extensions\NancyExtensions.cs" />
+    <Compile Include="Migrations\201501141134117_AddedEventTime.cs" />
+    <Compile Include="Migrations\201501141134117_AddedEventTime.Designer.cs">
+      <DependentUpon>201501141134117_AddedEventTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501141202015_RemovedEventTime.cs" />
+    <Compile Include="Migrations\201501141202015_RemovedEventTime.Designer.cs">
+      <DependentUpon>201501141202015_RemovedEventTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501141210230_AddedSelfReferenceToObservation.cs" />
+    <Compile Include="Migrations\201501141210230_AddedSelfReferenceToObservation.Designer.cs">
+      <DependentUpon>201501141210230_AddedSelfReferenceToObservation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501141356062_RemovedRelatedObservation.cs" />
+    <Compile Include="Migrations\201501141356062_RemovedRelatedObservation.Designer.cs">
+      <DependentUpon>201501141356062_RemovedRelatedObservation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501191435521_RemovedDataEntity.cs" />
+    <Compile Include="Migrations\201501191435521_RemovedDataEntity.Designer.cs">
+      <DependentUpon>201501191435521_RemovedDataEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501200952332_AddedFloorConfigTable.cs" />
+    <Compile Include="Migrations\201501200952332_AddedFloorConfigTable.Designer.cs">
+      <DependentUpon>201501200952332_AddedFloorConfigTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501210902222_AddedUserTable.cs" />
+    <Compile Include="Migrations\201501210902222_AddedUserTable.Designer.cs">
+      <DependentUpon>201501210902222_AddedUserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501211058340_AddedSalt.cs" />
+    <Compile Include="Migrations\201501211058340_AddedSalt.Designer.cs">
+      <DependentUpon>201501211058340_AddedSalt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501231214061_AddedAccessPointConfigTable.cs" />
+    <Compile Include="Migrations\201501231214061_AddedAccessPointConfigTable.Designer.cs">
+      <DependentUpon>201501231214061_AddedAccessPointConfigTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\Meraki\AccessPointConfigDto.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Migrations\201502260940437_AddedIsActive.cs" />
+    <Compile Include="Migrations\201502260940437_AddedIsActive.Designer.cs">
+      <DependentUpon>201502260940437_AddedIsActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503021543453_AddedSeenTimeIndex.cs" />
+    <Compile Include="Migrations\201503021543453_AddedSeenTimeIndex.Designer.cs">
+      <DependentUpon>201503021543453_AddedSeenTimeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503060901512_AddedMaxLength.cs" />
+    <Compile Include="Migrations\201503060901512_AddedMaxLength.Designer.cs">
+      <DependentUpon>201503060901512_AddedMaxLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503060908579_AddedMoreIndexes.cs" />
+    <Compile Include="Migrations\201503060908579_AddedMoreIndexes.Designer.cs">
+      <DependentUpon>201503060908579_AddedMoreIndexes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503111256338_AddedMoreIndexes1.cs" />
+    <Compile Include="Migrations\201503111256338_AddedMoreIndexes1.Designer.cs">
+      <DependentUpon>201503111256338_AddedMoreIndexes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503201022593_AddedDashboardConfig.cs" />
+    <Compile Include="Migrations\201503201022593_AddedDashboardConfig.Designer.cs">
+      <DependentUpon>201503201022593_AddedDashboardConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504091450432_ChangedUserModel.cs" />
+    <Compile Include="Migrations\201504091450432_ChangedUserModel.Designer.cs">
+      <DependentUpon>201504091450432_ChangedUserModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DashboardModule.cs" />
+    <Compile Include="ViewModels\AccessPointConfigViewModel.cs" />
+    <Compile Include="ViewModels\AccessPointDiagnosticResult.cs" />
+    <Compile Include="Modules\PurpleModule.cs" />
+    <Compile Include="Modules\AccessPointModule.cs" />
+    <Compile Include="Modules\AuthModule.cs" />
+    <Compile Include="DTO\Meraki\FloorConfigDto.cs" />
+    <Compile Include="Validation\FloorConfigDtoValidator.cs" />
+    <Compile Include="Validation\LoginValidator.cs" />
+    <Compile Include="ViewModels\AccessPointListViewModel.cs" />
+    <Compile Include="ViewModels\DiagnosticResult.cs" />
+    <Compile Include="ViewModels\DiagnosticViewModel.cs" />
+    <Compile Include="ViewModels\FloorConfigViewModel.cs" />
+    <Compile Include="ViewModels\FloorListViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Modules\FloorModule.cs" />
+    <Compile Include="Modules\HomeModule.cs" />
+    <Compile Include="Modules\MerakiModule.cs" />
+    <Compile Include="DTO\Meraki\ObservationDto.cs" />
+    <Compile Include="DTO\Meraki\DataDto.cs" />
+    <Compile Include="Migrations\201501090852521_Initial.cs" />
+    <Compile Include="Migrations\201501090852521_Initial.Designer.cs">
+      <DependentUpon>201501090852521_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Modules\SmartFlowModule.cs" />
+    <Compile Include="ViewModels\ReportListResult.cs" />
+    <Compile Include="ViewModels\ReportListViewModel.cs" />
+    <Compile Include="ViewModels\ReportDetailsResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ReportDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SnapshotListResult.cs" />
+    <Compile Include="ViewModels\SnapshotViewModel.cs" />
+    <Compile Include="ViewModels\ValidateViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="fonts\montserrat-regular-webfont.eot" />
+    <Content Include="fonts\montserrat-regular-webfont.ttf" />
+    <Content Include="fonts\montserrat-regular-webfont.woff" />
+    <None Include="Properties\PublishProfiles\SmartFlow.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\SmartFlow\Details.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
+    <Content Include="Views\SmartFlow\List.cshtml" />
+    <Content Include="Views\Floor\List.cshtml" />
+    <Content Include="Views\Floor\Details.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\AccessPoints\List.cshtml" />
+    <Content Include="Views\AccessPoints\Details.cshtml" />
+    <Content Include="Views\Shared\LoginLayout.cshtml" />
+    <Content Include="Views\SmartFlow\Admin.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201501090852521_Initial.resx">
+      <DependentUpon>201501090852521_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501141134117_AddedEventTime.resx">
+      <DependentUpon>201501141134117_AddedEventTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501141202015_RemovedEventTime.resx">
+      <DependentUpon>201501141202015_RemovedEventTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501141210230_AddedSelfReferenceToObservation.resx">
+      <DependentUpon>201501141210230_AddedSelfReferenceToObservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501141356062_RemovedRelatedObservation.resx">
+      <DependentUpon>201501141356062_RemovedRelatedObservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501191435521_RemovedDataEntity.resx">
+      <DependentUpon>201501191435521_RemovedDataEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501200952332_AddedFloorConfigTable.resx">
+      <DependentUpon>201501200952332_AddedFloorConfigTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501210902222_AddedUserTable.resx">
+      <DependentUpon>201501210902222_AddedUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501211058340_AddedSalt.resx">
+      <DependentUpon>201501211058340_AddedSalt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501231214061_AddedAccessPointConfigTable.resx">
+      <DependentUpon>201501231214061_AddedAccessPointConfigTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502260940437_AddedIsActive.resx">
+      <DependentUpon>201502260940437_AddedIsActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503021543453_AddedSeenTimeIndex.resx">
+      <DependentUpon>201503021543453_AddedSeenTimeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503060901512_AddedMaxLength.resx">
+      <DependentUpon>201503060901512_AddedMaxLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503060908579_AddedMoreIndexes.resx">
+      <DependentUpon>201503060908579_AddedMoreIndexes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503111256338_AddedMoreIndexes1.resx">
+      <DependentUpon>201503111256338_AddedMoreIndexes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503201022593_AddedDashboardConfig.resx">
+      <DependentUpon>201503201022593_AddedDashboardConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504091450432_ChangedUserModel.resx">
+      <DependentUpon>201504091450432_ChangedUserModel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>42757</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:42757/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+if $(ConfigurationName) == Debug (
+xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.23.2\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin\"
+xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.23.2\lib\Net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin\"
+)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
