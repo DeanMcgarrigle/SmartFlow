@@ -1,0 +1,425 @@
+﻿@using System
+@using System.Linq
+@using Nancy.Json
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<SmartFlow.ViewModels.ReportDetailsViewModel>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form action="/smartflow/@Model.ClientMac/details" method="GET">
+
+            <input type="hidden" name="Floor" value="@Model.Floor" />
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="datePickerFromInput">From</label>
+                        <input type="text" class="form-control" id="datePickerFromInput" name="FromDate" placeholder="Enter From" value="@Model.FromDate" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="datePickerToInput">To</label>
+                        <input type="text" class="form-control" id="datePickerToInput" name="ToDate" placeholder="Enter To" value="@Model.ToDate" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="minimumRssiInput">Minimum Rssi</label>
+                        <input type="number" class="form-control" id="minimumRssiInput" name="MinimumRssi" placeholder="Enter Minimum Rssi" value="@Model.MinimumRssi" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="uncertaintyInput">Maximum Uncertainty (M)</label>
+                        <input type="number" class="form-control" id="uncertaintyInput" name="MaximumUnc" placeholder="Enter Maximum Uncertainty" value="@Model.MaximumUnc" min="-5" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix">
+                <button type="submit" class="btn btn-success pull-right">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+@if (string.IsNullOrEmpty(Model.ImagePath))
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-warning" role="alert">No image found for: <strong>@Model.Floor</strong></div>
+        </div>
+    </div>
+}
+﻿﻿
+<div id="map"></div>
+
+<hr />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" id="playBtn" class="btn btn-success"><i class="glyphicon glyphicon-play"></i> Play</button>
+            <button type="button" id="resetBtn" class="btn btn-warning">Reset</button>
+            <button type="button" id="previousBtn" class="btn btn-default"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+            <button type="button" id="nextBtn" class="btn btn-default"><i class="glyphicon glyphicon-forward"></i> Next</button>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="pull-right">
+            <input type="checkbox" checked id="chartToggle" />
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-sm-12">
+        <p>Found <strong>@Model.Results.Count </strong> observations for <strong>@Model.ClientMac</strong> at <strong>@Model.Floor</strong> between <strong>@Model.FromDate</strong> and <strong>@Model.ToDate</strong>.</p>
+    </div>
+</div>
+
+@if (Model.Results.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered sortable">
+                <thead>
+                    <tr>
+                        <th>Seen Time</th>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>Unc</th>
+                        <th>Rssi</th>
+                        <th>Ap</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var result in Model.Results)
+                    {
+                        <tr>
+                            <td>
+                                @result.SeenTime
+                            </td>
+                            <td>
+                                @result.X
+                            </td>
+                            <td>
+                                @result.Y
+                            </td>
+                            <td>
+                                @result.Unc
+                            </td>
+                            <td>
+                                @result.Rssi
+                            </td>
+                            <td>
+                                @result.ApMac
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="@Url.Content("~/Content/Scripts/highcharts.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/highcharts-more.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/lodash.compat.min.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/jquery.timer.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/bootstrap-datetimepicker.min.js")"></script>
+    <script>
+        $(function() {
+
+            $("#datePickerFromInput").datetimepicker({
+                format: "DD/MM/YYYY HH:mm"
+            });
+
+            $("#datePickerToInput").datetimepicker({
+                format: "DD/MM/YYYY HH:mm",
+                showTodayButton: true
+            });
+
+            $("#datePickerToInput").on("dp.change", function(e) {
+                $('#datePickerFromInput').data("DateTimePicker").maxDate(e.date);
+            });
+            $("#datePickerFromInput").on("dp.change", function(e) {
+                $('#datePickerToInput').data("DateTimePicker").minDate(e.date);
+            });
+
+            $('#chartToggle').bootstrapToggle({
+                on: 'Accumulative',
+                off: 'Single'
+            });
+
+            @{
+                var serializer = new JavaScriptSerializer {MaxJsonLength = Int32.MaxValue};
+            }
+            var data = @Html.Raw(serializer.Serialize(Model));
+            var isPlaying = false;
+            var percentage = $(".progress-bar").attr("aria-valuenow");
+            var currentIndex = 0;
+            var playInterval = $.timer(function() {
+                playChart();
+
+            }, 100);
+            var chartOptions = {
+                chart: {
+                    type: 'bubble',
+                    zoomType: 'xy',
+                    plotBackgroundImage: "@Model.ImagePath",
+                    width: @Model.ChartWidth,
+                    height: @Model.ChartHeight,
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                plotOptions: {
+                    bubble: {
+                        minSize: 8,
+                        maxSize: 20
+                    }
+                },
+                xAxis: {
+                    min: 0,
+                    max: @Model.X,
+                    gridLineWidth: 1,
+                    minorGridLineWidth: 0,
+                    gridLineDashStyle: 'ShortDot',
+                    tickInterval: 1,
+                },
+                yAxis: {
+                    min: 0,
+                    max: @Model.Y,
+                    gridLineWidth: 1,
+                    minorGridLineWidth: 0,
+                    gridLineDashStyle: 'ShortDot',
+                    tickInterval: 1,
+                    title: {
+                        text: null
+                    }
+                }
+            }
+
+            drawChart();
+
+            function getDataAtIndex(decrement) {
+                var chart = $("#map").highcharts();
+                var maxLength = currentIndex > data.results.length ? data.results.length : currentIndex;
+                var subData = _.slice(data.results, currentIndex - 1, maxLength)[0];
+                var pointToRemove = _.slice(data.results, currentIndex, currentIndex + 1)[0];
+                var series;
+                var existingData;
+
+                if (!Boolean($('#chartToggle').prop('checked'))) {
+                    clearChart();
+                }
+
+                if (!decrement) {
+                    if (subData) {
+                        series = _.findIndex(chart.series, function(s) { return s.name === subData.apMac; });
+                        existingData = _.findIndex(chart.series[series].data, function(d) {
+                            return d.x === subData.x && d.y === subData.y;
+                        });
+
+                        if (existingData !== -1) {
+                            chart.series[series].data[existingData].update([subData.x, subData.y, chart.series[series].data[existingData].z + 1]);
+                        } else {
+                            chart.series[series].addPoint([subData.x, subData.y, 1]);
+                            if (Boolean($('#chartToggle').prop('checked'))) {
+                                chart.series[series].data[chart.series[series].data.length - 1].select();
+                            }
+                        }
+                    }
+                } else {
+                    if (pointToRemove && Boolean($('#chartToggle').prop('checked'))) {
+                        series = _.findIndex(chart.series, function(s) { return s.name === pointToRemove.apMac; });
+
+                        existingData = _.findIndex(chart.series[series].data, function(d) {
+                            return d.x === pointToRemove.x && d.y === pointToRemove.y;
+                        });
+
+                        if (existingData !== -1) {
+                            if (chart.series[series].data[existingData].z > 1) {
+                                chart.series[series].data[existingData].update([pointToRemove.x, pointToRemove.y, chart.series[series].data[existingData].z - 1]);
+                            } else {
+                                chart.series[series].data[existingData].remove();
+                            }
+                        }
+                    }
+
+                    // need to add the last point back
+                    if (!Boolean($('#chartToggle').prop('checked'))) {
+                        series = _.findIndex(chart.series, function(s) { return s.name === subData.apMac; });
+                        chart.series[series].addPoint([subData.x, subData.y, 1]);
+                    }
+                }
+            }
+
+            function chartData(dat) {
+                var accessPoints = {};
+                _.forEach(data.accessPoints, function(ap) {
+                    var thisAp = _.filter(dat, function(v) { return v.apMac === ap.displayName; });
+
+                    accessPoints[ap.displayName] = thisAp;
+                });
+
+                var chartSeries = _.map(accessPoints, function(v, k) {
+
+                    var seriesData = _.map(v, function(d) {
+                        var existing = _.filter(dat, function(f) {
+                            return d.x == f.x && d.y == f.y;
+                        });
+
+                        return [d.x, d.y, existing.length];
+                    });
+
+                    return {
+                        data: seriesData,
+                        name: k
+                    }
+                });
+
+                return chartSeries;
+            }
+
+            function playChart(decrement) {
+
+                decrement ? currentIndex-- : currentIndex++;
+                var percentilePoint = 100 / data.results.length;
+                percentage = Number(percentage);
+
+                if (percentage <= 100 && percentage >= 0) {
+                    decrement ? percentage -= percentilePoint : percentage += percentilePoint;
+                    $(".progress-bar").css("width", percentage + "%");
+                    $(".progress-bar").attr("aria-valuenow", percentage);
+
+                    // add chart points
+                    getDataAtIndex(decrement);
+
+                } else {
+                    resetChart();
+                }
+            }
+
+            function drawChart() {
+                chartOptions.series = chartData(data.results);
+                $("#map").highcharts(chartOptions);
+            }
+
+            function pauseChart() {
+                isPlaying = false;
+                isChartPlaying();
+                playInterval.pause();
+            }
+
+            function isChartPlaying() {
+                if (isPlaying) {
+                    $("#playBtn").html("<i class='glyphicon glyphicon-pause'></i> Pause");
+                } else {
+                    $("#playBtn").html("<i class='glyphicon glyphicon-play'></i> Play");
+                }
+            }
+
+            function resetChart() {
+                isPlaying = false;
+                isChartPlaying();
+
+                drawChart();
+                percentage = 0;
+                $(".progress-bar").attr("aria-valuenow", percentage);
+                $(".progress-bar").css("width", percentage);
+                playInterval.stop();
+                currentIndex = percentage;
+            }
+
+            function clearChart() {
+                var chart = $("#map").highcharts();
+
+                _.forEach(chart.series, function(s, i) {
+                    while (chart.series[i].data.length > 0) {
+                        chart.series[i].data[0].remove(false);
+                    }
+                });
+            }
+
+            function previousStep() {
+                if (isPlaying) {
+                    pauseChart();
+                }
+
+                playChart(true);
+            }
+
+            function nextStep() {
+                if (currentIndex === 0) {
+                    clearChart();
+                }
+
+                if (isPlaying) {
+                    pauseChart();
+                }
+                playChart();
+            }
+
+            function playStep() {
+                if (currentIndex === 0) {
+                    clearChart();
+                }
+
+                isPlaying = !isPlaying;
+                isChartPlaying();
+
+                if (isPlaying) {
+                    playInterval.play();
+                } else {
+                    playInterval.pause();
+                }
+            }
+
+            $("#resetBtn").click(resetChart);
+
+            $("#previousBtn").click(previousStep);
+
+            $("#nextBtn").click(nextStep);
+
+            $(document).keydown(function(e) {
+                switch (e.which) {
+                    case 32:
+                        playStep();
+                        break;
+                    case 37:
+                        previousStep();
+                        break;
+                    case 39:
+                        nextStep();
+                        break;
+                    default:
+                        return;
+                }
+
+                e.preventDefault();
+            });
+
+            $("#playBtn").click(playStep);
+        });
+    </script>
+}

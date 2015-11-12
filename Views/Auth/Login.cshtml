@@ -1,0 +1,42 @@
+﻿@using System.Linq
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<SmartFlow.ViewModels.LoginViewModel>
+@{
+    Layout = "Views/Shared/LoginLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+        @if (Model.Errors.Any())
+        {
+            <div class="alert alert-danger">
+                @foreach (var item in Model.Errors.Keys)
+                {
+                    <p><strong>@item</strong></p>
+                    <ul>
+                        @foreach (var err in Model.Errors[item])
+                        {
+                            <li>@err</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="usernameInput">Username</label>
+                <input type="text" class="form-control" id="usernameInput" name="Username" placeholder="Enter Username" value="@Model.Username" />
+            </div>
+
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="password" class="form-control" id="passwordInput" name="Password" placeholder="Enter Password" value="@Model.Password" />
+            </div>
+
+            <div class="clearfix">
+                <button type="submit" class="btn btn-success pull-right">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

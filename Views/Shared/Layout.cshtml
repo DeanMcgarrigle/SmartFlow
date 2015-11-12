@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <title>SmartFlow</title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" media="screen" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap-sortable.css")" media="screen" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")" media="screen" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap-toggle.min.css")" media="screen" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/rdash.css")" media="screen" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/custom.css")" media="screen" rel="stylesheet" />
+</head>
+<body ng-app="app">
+
+    @RenderBody()
+    
+    @*<script src="@Url.Content("~/Content/Scripts/jquery-1.11.2.min.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/moment.min.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/bootstrap-sortable.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/bootstrap-toggle.min.js")"></script>*@
+    @RenderSection("scripts", false)
+    <script src="@Url.Content("~/build/js/index.js")"></script>
+</body>
+</html>

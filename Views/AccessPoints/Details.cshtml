@@ -1,0 +1,52 @@
+﻿@using System.Linq
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<SmartFlow.ViewModels.AccessPointConfigViewModel>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+        @if (Model.AccessPointConfig.Errors.Any())
+        {
+            <div class="alert alert-danger">
+                @foreach (var item in Model.AccessPointConfig.Errors.Keys)
+                {
+                    <p><strong>@item</strong></p>
+                    <ul>
+                        @foreach (var err in Model.AccessPointConfig.Errors[item])
+                        {
+                            <li>@err</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+
+        <form action="/smartflow/access-points/config" method="POST">
+            <input type="hidden" name="Name" value="@Model.AccessPointConfig.Name" />
+            <input type="hidden" name="ApMac" value="@Model.AccessPointConfig.ApMac" />
+            <div class="form-group">
+                <label for="displayNameInput">Display Name</label>
+                <input type="text" class="form-control" id="displayNameInput" name="DisplayName" placeholder="Enter Display Name" value="@Model.AccessPointConfig.DisplayName" />
+            </div>
+
+            <div class="form-group">
+                <label for="xInput">X (In metres)</label>
+                <input type="number" class="form-control" id="xInput" name="X" placeholder="Enter X (In metres)" step="any" value="@Model.AccessPointConfig.X" />
+            </div>
+
+            <div class="form-group">
+                <label for="yInput">Y (In metres)</label>
+                <input type="number" class="form-control" id="yInput" name="Y" placeholder="Enter Y (In metres)" step="any" value="@Model.AccessPointConfig.Y" />
+            </div>
+            
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="IsActive" checked="@Model.AccessPointConfig.IsActive" /> Is Active?
+                </label>
+            </div>
+
+            <div class="clearfix">
+                <button type="submit" class="btn btn-success pull-right">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

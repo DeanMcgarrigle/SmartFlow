@@ -1,0 +1,60 @@
+﻿@using System.Linq
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<SmartFlow.ViewModels.FloorListViewModel>
+﻿﻿
+@if (Model.Floors.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="/smartflow/floors/config" method="GET">
+                <div class="form-group">
+                    <label for="inputFloor">Floors</label>
+                    <select name="Floor" id="inputFloor" class="form-control">
+                        @foreach (var floor in Model.Floors)
+                        {
+                            <option value="@floor">@floor</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="clearfix">
+                    <button type="submit" class="btn btn-success pull-right">Add Configuration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<hr />
+
+@if (Model.FloorResults.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered sortable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>X</th>
+                        <th>Y</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var result in Model.FloorResults)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/smartflow/floors/config?Floor=@result.Name">@result.Name</a>
+                            </td>
+                            <td>
+                                @result.X
+                            </td>
+                            <td>
+                                @result.Y
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

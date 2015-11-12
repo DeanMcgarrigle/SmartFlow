@@ -1,0 +1,55 @@
+﻿@using System.Linq
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<SmartFlow.ViewModels.FloorConfigViewModel>
+
+@if (!string.IsNullOrEmpty(Model.ImagePath))
+{
+    <div class="row text-center">
+        <img src="@Model.ImagePath" class="floor-image" />
+    </div>
+}
+else
+{
+    <div class="row text-center alert alert-warning">
+        <p>No image found for this floor</p>
+    </div>
+}
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+        @if (Model.FloorConfig.Errors.Any())
+        {
+            <div class="alert alert-danger">
+                @foreach (var item in Model.FloorConfig.Errors.Keys)
+                {
+                    <p><strong>@item</strong></p>
+                    <ul>
+                        @foreach (var err in Model.FloorConfig.Errors[item])
+                        {
+                            <li>@err</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+
+        <form action="/smartflow/floors/config" method="POST">
+            <input type="hidden" name="Name" value="@Model.FloorConfig.Name" />
+            <div class="form-group">
+                <label for="xInput">X (In metres)</label>
+                <input type="number" class="form-control" id="xInput" name="x" placeholder="Enter X (In metres)" value="@Model.FloorConfig.X" />
+            </div>
+
+            <div class="form-group">
+                <label for="yInput">Y (In metres)</label>
+                <input type="number" class="form-control" id="yInput" name="y" placeholder="Enter Y (In metres)" value="@Model.FloorConfig.Y" />
+            </div>
+
+            <div class="clearfix">
+                <button type="submit" class="btn btn-success pull-right">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

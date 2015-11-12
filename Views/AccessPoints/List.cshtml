@@ -1,0 +1,92 @@
+﻿@using System.Linq
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<SmartFlow.ViewModels.AccessPointListViewModel>
+﻿﻿
+
+<div class="row">
+
+    @if (Model.Floors.Any())
+    {
+        <div class="col-sm-12">
+            <form action="/smartflow/access-points" method="GET">
+                <div class="form-group">
+                    <label for="inputFloor">Floors</label>
+                    <select name="Floor" id="inputFloor" class="form-control">
+                        @foreach (var floor in Model.Floors)
+                        {
+                            <option value="@floor" selected="@(floor == Model.Floor)">@floor</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="clearfix">
+                    <button type="submit" class="btn btn-success pull-right">Select</button>
+                </div>
+            </form>
+        </div>
+    }
+</div>
+@if (Model.AccessPoints.Any())
+{
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-6">
+            <form action="/smartflow/access-points/config" method="GET">
+                <input type="hidden" name="Floor" value="@Model.Floor" />
+                <div class="form-group">
+                    <label for="inputAccessPoint">Access Points for @Model.Floor</label>
+                    <select name="AccessPoint" id="inputAccessPoint" class="form-control">
+                        @foreach (var ap in Model.AccessPoints)
+                        {
+                            <option value="@ap">@ap</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="clearfix">
+                    <button type="submit" class="btn btn-success pull-right">Add Configuration</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+}
+
+<hr />
+
+@if (Model.AccessPointResults.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered sortable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Display Name</th>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>Enabled</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var result in Model.AccessPointResults)
+                    {
+                        <tr class="@(result.IsActive ? "" : "danger")">
+                            <td>
+                                <a href="/smartflow/access-points/config?Floor=@result.Name&AccessPoint=@result.ApMac">@result.Name</a>
+                            </td>
+                            <td>
+                                @result.DisplayName
+                            </td>
+                            <td>
+                                @result.X
+                            </td>
+                            <td>
+                                @result.Y
+                            </td>
+                            <td>@result.IsActive</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
